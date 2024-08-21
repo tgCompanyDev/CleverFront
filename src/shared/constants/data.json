@@ -1,0 +1,126 @@
+{
+    "status": true,
+    "code": 200,
+    "errors": {},
+    "data": [
+        {
+            "id": 1,
+            "save_confirmation": true,
+            "name": "Стартовое сообщение",
+            "text": "Текст Стартовое сообщение типо добро пожаловать",
+            "type": "message",
+            "first_message": true,
+            "wait_input": null,
+            "need_confirmation": false,
+            "next_message_id": 7,
+            "image": "https://welcome-novosibirsk.ru/upload/resize_cache/iblock/90c/s7hj7og7vo403mhgojq7hsdgzw4mncn1/697_500_2/cle5.jpg",
+            "buttons": []
+        },
+        {
+            "id": 7,
+            "save_confirmation": false,
+            "name": "второе сообщение",
+            "text": "Тут типо Клевер збс бла бла\r\nПриходите похавать в наш рестик у нас збс",
+            "type": "message",
+            "first_message": false,
+            "wait_input": null,
+            "need_confirmation": false,
+            "next_message_id": null,
+            "image": "https://welcome-novosibirsk.ru/upload/resize_cache/iblock/12b/e3ep4l9wi3jh15a0rnew4xi0a776clwn/697_500_2/cle3.jpg",
+            "buttons": [
+                {
+                    "id": 13,
+                    "text": "Меню",
+                    "callback_data": "8"
+                },
+                {
+                    "id": 14,
+                    "text": "Программа лояльности",
+                    "callback_data": null
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "save_confirmation": false,
+            "name": "Меню",
+            "text": "У нас охуительное меню",
+            "type": "message",
+            "first_message": false,
+            "wait_input": null,
+            "need_confirmation": false,
+            "next_message_id": null,
+            "image": null,
+            "buttons": [
+                {
+                    "id": 15,
+                    "text": "Еда",
+                    "callback_data": "9"
+                },
+                {
+                    "id": 16,
+                    "text": "Бухло",
+                    "callback_data": "10"
+                },
+                {
+                    "id": 17,
+                    "text": "Акции",
+                    "callback_data": null
+                },
+                {
+                    "id": 18,
+                    "text": "Назад",
+                    "callback_data": "7"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "save_confirmation": false,
+            "name": "Еда",
+            "text": "Еда говорю збс",
+            "type": "message",
+            "first_message": false,
+            "wait_input": null,
+            "need_confirmation": false,
+            "next_message_id": null,
+            "image": null,
+            "buttons": [
+                {
+                    "id": 19,
+                    "text": "Горячее",
+                    "callback_data": null
+                },
+                {
+                    "id": 20,
+                    "text": "Закуски",
+                    "callback_data": null
+                },
+                {
+                    "id": 21,
+                    "text": "Назад",
+                    "callback_data": "8"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "save_confirmation": false,
+            "name": "Бухло",
+            "text": "Пивас огонь",
+            "type": "message",
+            "first_message": false,
+            "wait_input": null,
+            "need_confirmation": false,
+            "next_message_id": null,
+            "image": null,
+            "buttons": [
+                {
+                    "id": 22,
+                    "text": "Назад",
+                    "callback_data": "8"
+                }
+            ]
+        }
+    ]
+}
