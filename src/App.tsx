@@ -1,4 +1,3 @@
-import V2Example from './Example';
 import { CardList } from './components/cards-wrapper/CardList';
 
 const App = () => {
@@ -7,7 +6,6 @@ const App = () => {
         <header>header</header>
         <main className='container'>
             <CardList />
-            <V2Example />
         </main>
         <footer>footer</footer>
     </>

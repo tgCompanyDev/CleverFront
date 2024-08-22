@@ -4,18 +4,14 @@ import s from "./styles.module.css"
 import { useXarrow } from "react-xarrows";
 import Draggable from "react-draggable";
 import { Button, Typography } from "antd";
+import { TMessageCard } from "../../shared/types/cardMessages";
 const { Title, Text } = Typography
 
 interface CardProps {
     onChooseStart: (ref: RefObject<HTMLButtonElement>) => void;
     onChooseEnd: (ref: RefObject<HTMLDivElement>) => void;
     cardId: number;
-    data: {
-        name: string
-        text: string
-        buttons: any[]
-        id: number
-    }
+    data: TMessageCard
 }
 
 const DraggableBox = ({ children, ref }: { children: ReactNode, ref: RefObject<HTMLDivElement> }) => {
@@ -27,20 +23,22 @@ const DraggableBox = ({ children, ref }: { children: ReactNode, ref: RefObject<H
     );
 };
 
-export const Card: FC<CardProps> = ({ cardId, onChooseStart, onChooseEnd, data}) => {
+export const Card: FC<CardProps> = ({ cardId, onChooseStart, onChooseEnd, data }) => {
     const cardRef = useRef(null)
     //const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
 
     const buttons = ['кнопка1', 'кнопка2', 'кнопка3']
 
     const handleChooseEndCard = () => {
-        onChooseEnd && onChooseEnd(cardRef)
+        if (onChooseEnd) {
+            onChooseEnd(cardRef)
+        }
     }
 
     return (
         <DraggableBox ref={cardRef}>
-            <div className={s.card} key={cardId} ref={cardRef} onClick={handleChooseEndCard}>
-                <Title level={3} style={{textAlign: "center"}}>{data.name.toUpperCase()}</Title>
+            <div className={s.card} key={cardId} ref={cardRef} onClick={handleChooseEndCard} id={cardId.toString()}>
+                <Title level={3} style={{ textAlign: "center" }}>{data.name.toUpperCase()}</Title>
                 <div>
                     <Text>{data.text}</Text>
                 </div>

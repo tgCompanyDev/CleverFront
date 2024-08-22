@@ -20,7 +20,7 @@ export const ActionButton: React.FC<ButtonProps> = ({ buttonId, cardId, onChoose
     }, [buttonId, cardId, onChooseStart]);
 
     return (
-        <button ref={buttonRef} onClick={handleClick} className={s.button} id={cardId+buttonId}>
+        <button ref={buttonRef} onClick={handleClick} className={s.button} id={buttonId}>
             {text}
         </button>
     );

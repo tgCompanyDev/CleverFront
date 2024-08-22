@@ -15,7 +15,8 @@
     "react-archer": "^4.4.0",
     "react-dom": "^18.3.1",
     "react-draggable": "^4.4.6",
-    "react-xarrows": "^2.0.2"
+    "react-xarrows": "^2.0.2",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
