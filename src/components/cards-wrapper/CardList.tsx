@@ -1,10 +1,10 @@
 import { RefObject, useState } from "react";
-import { Card } from "../card/Card";
 import s from "./styles.module.css"
 import Xarrow, { Xwrapper } from "react-xarrows";
-import { data } from "../../shared/constants";
-import { TMessageCard } from "../../shared/types/cardMessages";
-import { getRandomContrastingColor } from "../../shared/libs/helpers/xArrows";
+import { TMessageCard } from "shared/types/cardMessages";
+import { getRandomContrastingColor } from "shared/libs/helpers/xArrows";
+import { data } from "shared/constants";
+import { Card } from "components/card/Card";
 
 type TArrowData = {
     start?: RefObject<HTMLButtonElement>,
@@ -38,8 +38,6 @@ export const CardList = () => {
     )
 
     const renderXArrows = (card: TMessageCard, cardIndex: number) => {
-        console.log(getRandomContrastingColor());
-
         switch (true) {
             case !!card.next_message_id:
                 console.log('connect', card.id, card.next_message_id);
