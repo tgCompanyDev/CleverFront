@@ -1,10 +1,10 @@
 import { RefObject, useState } from "react";
 import s from "./styles.module.css"
 import Xarrow, { Xwrapper } from "react-xarrows";
-import { TMessageCard } from "shared/types/cardMessages";
-import { getRandomContrastingColor } from "shared/libs/helpers/xArrows";
-import { data } from "shared/constants";
-import { Card } from "components/card/Card";
+import { data } from "src/shared/constants";
+import { TMessageCard } from "src/shared/types/cardMessages";
+import { Card } from "src/components/card/Card";
+import { getRandomContrastingColor } from "src/shared/libs/helpers/xArrows";
 
 type TArrowData = {
     start?: RefObject<HTMLButtonElement>,
