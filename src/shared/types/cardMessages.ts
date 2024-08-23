@@ -9,7 +9,7 @@ export type TMessageCard = {
     need_confirmation: boolean;
     next_message_id: number | null;
     image: string | null;
-    buttons: messageButton[] | [];
+    buttons: messageButton[];
 }
 
 export type messageButton = {

@@ -41,14 +41,30 @@ export const CardList = () => {
         switch (true) {
             case !!card.next_message_id:
                 console.log('connect', card.id, card.next_message_id);
-                return <Xarrow key={cardIndex} start={card.id.toString()} end={card.next_message_id.toString()} />
+                return (
+                    <Xarrow
+                        key={cardIndex}
+                        start={card.id.toString()}
+                        end={card.next_message_id.toString()}
+                        color={getRandomContrastingColor()}
+                        path="smooth"
+                        strokeWidth={2}
+                    />
+                )
             case !card.next_message_id && card.buttons.length >= 1:
                 return (
-                    card.buttons.map((button, buttonIndex) => {
+                    card?.buttons?.map((button, buttonIndex) => {
                         if (button.id && button.callback_data) {
                             console.log('button', button)
                             return (
-                                <Xarrow key={buttonIndex} start={button.id.toString()} end={button.callback_data.toString()} color={getRandomContrastingColor()} />
+                                <Xarrow
+                                    key={buttonIndex}
+                                    start={button.id.toString()}
+                                    end={button.callback_data.toString()}
+                                    color={getRandomContrastingColor()}
+                                    path="smooth"
+                                    strokeWidth={2}
+                                />
                             )
                         }
                     })
