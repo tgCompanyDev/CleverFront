@@ -1,4 +1,5 @@
-import { CardList } from './components/cards-wrapper/CardList';
+import { CardList } from "./entities/cards-wrapper/CardList";
+
 
 const App = () => {
   return (

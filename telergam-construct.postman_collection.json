@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "53371e40-a156-4b73-8364-6ba8155820d1",
+		"name": "telergam-construct",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28007275"
+	},
+	"item": [
+		{
+			"name": "Constuct",
+			"item": [
+				{
+					"name": "Post",
+					"item": [
+						{
+							"name": "CreatePost",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"postname2\",\r\n    \"text\":\"text2\",\r\n    \"type\":\"post\",\r\n    \"bot_id\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/post",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"post"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPost",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/post/1",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"post",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeletePost",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/post/1",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"post",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ShowAllPosts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/post",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"post"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Messages",
+					"item": [
+						{
+							"name": "ShowMessage",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/message/1",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"message",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ShowAllMessages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/message",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"message"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SyncButtons",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"buttons\":[\r\n           {\r\n            \"text\":\"button1\",\r\n            \"callback_data\":2 //message_id\r\n        },\r\n        {\r\n            \"text\":\"button2\",\r\n            \"callback_data\":3//message_id\r\n        },\r\n        {\r\n            \"text\":\"Назад\",\r\n            \"callback_data\":1//message_id\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/message/1/sync-buttons",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"message",
+										"1",
+										"sync-buttons"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateMessage",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\":\"text message2\",\r\n    \"type\":\"message\",\r\n    \"name\":\"name message2\",\r\n    \"bot_id\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/message",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"message"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateMessage",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\":\"Добро пожаловать\",\r\n    \"type\":\"message\",\r\n    \"name\":\"Стартовое сообщение\",\r\n    // \"next_message_id\":\"\",\r\n    \"attachment_id\":1//ид загруженной картинки\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/message/1",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"message",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ConfirmSaveAllMasseges(button save)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"bot_id\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/message/confirm-save-all",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"message",
+										"confirm-save-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteMessage",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/message/4",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"message",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Files",
+					"item": [
+						{
+							"name": "UploadImage",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/user/Pictures/images.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{urlProd}}/api/tg-construct/upload-image",
+									"host": [
+										"{{urlProd}}"
+									],
+									"path": [
+										"api",
+										"tg-construct",
+										"upload-image"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Bot",
+			"item": [
+				{
+					"name": "ConnectBot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\":\"6685188155:AAFfQxYZBwyC3mF-VfuKt6Nr9M-TtgIsa9s\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlProd}}/api/bot/connect-bot",
+							"host": [
+								"{{urlProd}}"
+							],
+							"path": [
+								"api",
+								"bot",
+								"connect-bot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SetWebhook",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\":\"https://botamba.ru/telegram-input\",\r\n    \"bot_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlProd}}/api/bot/set-webhook",
+							"host": [
+								"{{urlProd}}"
+							],
+							"path": [
+								"api",
+								"bot",
+								"set-webhook"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -17,7 +17,7 @@ interface CardProps {
 const DraggableBox = ({ children, ref }: { children: ReactNode, ref: RefObject<HTMLDivElement> }) => {
     const updateXarrow = useXarrow();
     return (
-        <Draggable onDrag={updateXarrow} onStop={updateXarrow} nodeRef={ref}>
+        <Draggable onDrag={updateXarrow} onStop={updateXarrow} nodeRef={ref} >
             {children}
         </Draggable>
     );
@@ -46,7 +46,7 @@ export const Card: FC<CardProps> = ({ cardId, onChooseStart, onChooseEnd, data }
                     {data?.buttons?.map((button) => (
                         <ActionButton
                             key={button.id}
-                            buttonId={button.id}
+                            buttonId={button.id.toString()}
                             cardId={data.id}
                             onChooseStart={onChooseStart}
                             text={button.text}

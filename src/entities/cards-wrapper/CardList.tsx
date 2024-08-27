@@ -1,21 +1,21 @@
-import { RefObject, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import s from "./styles.module.css"
 import Xarrow, { Xwrapper } from "react-xarrows";
 import { data } from "src/shared/constants";
 import { TMessageCard } from "src/shared/types/cardMessages";
-import { Card } from "src/components/card/Card";
-import { getRandomContrastingColor } from "src/shared/libs/helpers/xArrows";
+import { getRandomContrastingColor } from "src/shared/libs/utils/xArrows";
+import { Card } from "../card/Card";
+import { messagesApi } from "src/widgets/messages/api/MessagesApi";
 
 type TArrowData = {
     start?: RefObject<HTMLButtonElement>,
     end?: RefObject<HTMLDivElement>,
 }
 
-const cardList: TMessageCard[] = data.data
+//const cardList: TMessageCard[] = data.data
 
 export const CardList = () => {
-    const [cards, setCards] = useState<TMessageCard[]>(cardList);
-    const [arrows, setArrows] = useState<TArrowData[]>([]);
+    const [cards, setCards] = useState<TMessageCard[]>([]);
     const addCard = () => {
         //setCards([...cards, { id: cards.length + 1 }]);
     };
@@ -74,12 +74,26 @@ export const CardList = () => {
         }
     }
 
+    const getAllMessages = () => {
+        messagesApi
+            .fetchAllMessages()
+            .then((res) => {
+                setCards(res.data.data)
+            })
+    }
+
+    useEffect(() => {
+        getAllMessages()
+    }, [])
+
 
     return (
         <Xwrapper>
             <button className={s.button} onClick={addCard}>Добавить карточку</button>
-            <div className={s.wrapper}>{cards.map(renderCards)}</div>
-            <div>{cards.map(renderXArrows)}</div>
+            {cards.length > 1 && <>
+                <div className={s.wrapper}>{cards?.map(renderCards)}</div>
+                <div>{cards?.map(renderXArrows)}</div>
+            </>}
         </Xwrapper>
     );
 };
