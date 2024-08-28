@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "src/shared/libs/utils/auth";
+import { getToken } from "@/shared/libs/utils/auth";
 
 export const api = axios.create();
 

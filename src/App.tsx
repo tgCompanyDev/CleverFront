@@ -1,12 +1,11 @@
-import { CardList } from "./entities/cards-wrapper/CardList";
-
+import HomePage from "@/pages/home-page/HomePage";
 
 const App = () => {
   return (
     <>
         <header>header</header>
         <main className='container'>
-            <CardList />
+            <HomePage />
         </main>
         <footer>footer</footer>
     </>

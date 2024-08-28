@@ -1,33 +1,23 @@
-import { FC, ReactNode, RefObject, useRef } from "react";
-import { ActionButton } from "../action-button/Button";
+import { FC, RefObject, useRef } from "react";
 import s from "./styles.module.css"
-import { useXarrow } from "react-xarrows";
-import Draggable from "react-draggable";
-import { Button, Typography } from "antd";
-import { TMessageCard } from "../../shared/types/cardMessages";
+import { Button, Space, Typography } from "antd";
+import { TMessageCard } from "@/widgets/message-list";
+import { DraggableBox } from "@/shared/ui/DraggableBox";
+import { ActionButton } from "../action-button/Button";
+import { RiseOutlined } from "@ant-design/icons";
 const { Title, Text } = Typography
 
-interface CardProps {
+interface ICardProps {
     onChooseStart: (ref: RefObject<HTMLButtonElement>) => void;
     onChooseEnd: (ref: RefObject<HTMLDivElement>) => void;
     cardId: number;
     data: TMessageCard
 }
 
-const DraggableBox = ({ children, ref }: { children: ReactNode, ref: RefObject<HTMLDivElement> }) => {
-    const updateXarrow = useXarrow();
-    return (
-        <Draggable onDrag={updateXarrow} onStop={updateXarrow} nodeRef={ref} >
-            {children}
-        </Draggable>
-    );
-};
-
-export const Card: FC<CardProps> = ({ cardId, onChooseStart, onChooseEnd, data }) => {
+export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data }) => {
     const cardRef = useRef(null)
     //const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
 
-    const buttons = ['кнопка1', 'кнопка2', 'кнопка3']
 
     const handleChooseEndCard = () => {
         if (onChooseEnd) {
@@ -38,7 +28,11 @@ export const Card: FC<CardProps> = ({ cardId, onChooseStart, onChooseEnd, data }
     return (
         <DraggableBox ref={cardRef}>
             <div className={s.card} key={cardId} ref={cardRef} onClick={handleChooseEndCard} id={cardId.toString()}>
-                <Title level={3} style={{ textAlign: "center" }}>{data.name.toUpperCase()}</Title>
+                <Space>
+                    <Title level={3} style={{ textAlign: "center" }}>{data.name.toUpperCase()}</Title>
+                    <Button type="text"><RiseOutlined /></Button>
+                </Space>
+                
                 <div>
                     <Text>{data.text}</Text>
                 </div>
@@ -53,10 +47,10 @@ export const Card: FC<CardProps> = ({ cardId, onChooseStart, onChooseEnd, data }
                         />
                     ))}
                 </div>
-                <div>
+                <Space align="center"  className="justify-center">
                     <Button type="primary">Сохранить</Button>
                     <Button type="default">Изменить</Button>
-                </div>
+                </Space>
             </div>
         </DraggableBox>
     );

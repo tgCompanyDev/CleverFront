@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
-import { api, apiRoutes } from "src/shared/api/api";
-import { TMessageCard } from "src/shared/types/cardMessages";
+import { api, apiRoutes } from "@/shared/api/api";
+import { TMessageCard } from "../types/messagesTypes";
 //import { TMessageResponseDto, TMessagesResponseDto } from "types/typesApi";
 
 export class MessagesService {

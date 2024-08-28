@@ -1,0 +1,1 @@
+export type { TMessageCard, TMessageButton } from "./types/messagesTypes";

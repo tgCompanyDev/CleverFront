@@ -1,4 +1,4 @@
-import { NotFound } from "src/shared/ui/NotFound";
+import { NotFound } from "@/shared/ui/NotFound";
 
 const NotFoundPage = () => {
     return ( 

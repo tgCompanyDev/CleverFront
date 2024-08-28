@@ -1,20 +1,15 @@
 import { RefObject, useEffect, useState } from "react";
 import s from "./styles.module.css"
 import Xarrow, { Xwrapper } from "react-xarrows";
-import { data } from "src/shared/constants";
-import { TMessageCard } from "src/shared/types/cardMessages";
-import { getRandomContrastingColor } from "src/shared/libs/utils/xArrows";
-import { Card } from "../card/Card";
-import { messagesApi } from "src/widgets/messages/api/MessagesApi";
-
-type TArrowData = {
-    start?: RefObject<HTMLButtonElement>,
-    end?: RefObject<HTMLDivElement>,
-}
+import { messagesApi } from "../api/MessagesApi";
+import { TMessageCard } from "../types/messagesTypes";
+import { getRandomContrastingColor } from "@/shared/libs/utils/xArrows";
+import { Card } from "./message-card/MessageCard";
+import { Button } from "antd";
 
 //const cardList: TMessageCard[] = data.data
 
-export const CardList = () => {
+export const MessageList = () => {
     const [cards, setCards] = useState<TMessageCard[]>([]);
     const addCard = () => {
         //setCards([...cards, { id: cards.length + 1 }]);
@@ -37,8 +32,13 @@ export const CardList = () => {
         <Card data={card} key={card.id} cardId={card.id} onChooseEnd={onChooseEnd} onChooseStart={onChooseStart} />
     )
 
+    const showArrows = () => {
+        //
+    }
+
     const renderXArrows = (card: TMessageCard, cardIndex: number) => {
         switch (true) {
+            //Стрелка от карточки
             case !!card.next_message_id:
                 console.log('connect', card.id, card.next_message_id);
                 return (
@@ -51,11 +51,11 @@ export const CardList = () => {
                         strokeWidth={2}
                     />
                 )
+            //Стрелка от кнопки
             case !card.next_message_id && card.buttons.length >= 1:
                 return (
                     card?.buttons?.map((button, buttonIndex) => {
-                        if (button.id && button.callback_data) {
-                            console.log('button', button)
+                        if (button.id && button.text.toLocaleLowerCase() !== "назад" && button.callback_data) {
                             return (
                                 <Xarrow
                                     key={buttonIndex}
@@ -64,6 +64,7 @@ export const CardList = () => {
                                     color={getRandomContrastingColor()}
                                     path="smooth"
                                     strokeWidth={2}
+                                    zIndex={2}
                                 />
                             )
                         }
@@ -88,12 +89,14 @@ export const CardList = () => {
 
 
     return (
-        <Xwrapper>
-            <button className={s.button} onClick={addCard}>Добавить карточку</button>
-            {cards.length > 1 && <>
-                <div className={s.wrapper}>{cards?.map(renderCards)}</div>
-                <div>{cards?.map(renderXArrows)}</div>
-            </>}
-        </Xwrapper>
+        <section>
+            <Xwrapper>
+                <Button type="primary" onClick={addCard}>Добавить карточку</Button>
+                {cards.length > 1 && <>
+                    <div className={s.wrapper}>{cards?.map(renderCards)}</div>
+                    <div>{cards?.map(renderXArrows)}</div>
+                </>}
+            </Xwrapper>
+        </section>
     );
 };
