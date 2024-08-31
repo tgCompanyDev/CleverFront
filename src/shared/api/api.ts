@@ -15,7 +15,6 @@ api.interceptors.request.use((config) => {
 
 export const apiRoutes = {
 	messages: {
-		fetchAllMessages: '/api/tg-construct/message',
-		fetchMessage: '/api/smart-contracts/create',//+/[id]
+        baseRoute: '/api/tg-construct/message',
 	}
 }

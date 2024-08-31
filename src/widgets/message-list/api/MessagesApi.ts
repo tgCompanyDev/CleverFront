@@ -5,13 +5,18 @@ import { TMessageCard } from "../types/messagesTypes";
 
 export class MessagesService {
 
-    fetchAllMessages(): Promise<AxiosResponse<{data: TMessageCard[]}>> {
-        return api.get(apiRoutes.messages.fetchAllMessages)
+    fetchAllMessages(): Promise<AxiosResponse<{ data: TMessageCard[] }>> {
+        return api.get(apiRoutes.messages.baseRoute)
     }
 
-    fetchMessage(id: number): Promise<AxiosResponse<{data: TMessageCard[]}>> {
-        const requestPath = `${apiRoutes.messages.fetchMessage}/search?query=${id}`
+    fetchMessage(id: number): Promise<AxiosResponse<{ data: TMessageCard[] }>> {
+        const requestPath = `${apiRoutes.messages.baseRoute}/${id}`
         return api.get(requestPath);
+    }
+
+    createMessage(message: TMessageCard): Promise<AxiosResponse<{ data: TMessageCard }>> {
+        const requestPath = `${apiRoutes.messages.baseRoute}`
+        return api.post(requestPath, message);
     }
 }
 

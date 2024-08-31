@@ -5,6 +5,7 @@ import { TMessageCard } from "@/widgets/message-list";
 import { DraggableBox } from "@/shared/ui/DraggableBox";
 import { ActionButton } from "../action-button/Button";
 import { RiseOutlined } from "@ant-design/icons";
+import { messagesApi } from "../../api/MessagesApi";
 const { Title, Text } = Typography
 
 interface ICardProps {
@@ -18,6 +19,9 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
     const cardRef = useRef(null)
     //const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
 
+    const handleSaveMessage = () => {
+        data && messagesApi.createMessage({...data, id: undefined, bot_id: 1})
+    }
 
     const handleChooseEndCard = () => {
         if (onChooseEnd) {
@@ -48,7 +52,7 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
                     ))}
                 </div>
                 <Space align="center"  className="justify-center">
-                    <Button type="primary">Сохранить</Button>
+                    <Button type="primary" onClick={handleSaveMessage}>Сохранить</Button>
                     <Button type="default">Изменить</Button>
                 </Space>
             </div>

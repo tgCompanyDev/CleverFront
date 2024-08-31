@@ -6,12 +6,18 @@ import { TMessageCard } from "../types/messagesTypes";
 import { getRandomContrastingColor } from "@/shared/libs/utils/xArrows";
 import { Card } from "./message-card/MessageCard";
 import { Button } from "antd";
+import { useAppStore } from "@/model/store";
+import { MessagesSelector } from "@/model/store/slices/messagesSlice";
+import { findMaxId } from "@/shared/libs/helpers";
 
 //const cardList: TMessageCard[] = data.data
 
 export const MessageList = () => {
-    const [cards, setCards] = useState<TMessageCard[]>([]);
+    const { messageList, addMessage, setMessageList } = useAppStore(MessagesSelector)
     const addCard = () => {
+        messageList && addMessage(findMaxId(messageList));
+        
+        //addMessage(messageList.length)
         //setCards([...cards, { id: cards.length + 1 }]);
     };
 
@@ -64,7 +70,7 @@ export const MessageList = () => {
                                     color={getRandomContrastingColor()}
                                     path="smooth"
                                     strokeWidth={2}
-                                    zIndex={2}
+                                    zIndex={0}
                                 />
                             )
                         }
@@ -79,7 +85,8 @@ export const MessageList = () => {
         messagesApi
             .fetchAllMessages()
             .then((res) => {
-                setCards(res.data.data)
+                setMessageList(res.data.data)
+                //setMessageList(res.data.data)
             })
     }
 
@@ -87,14 +94,13 @@ export const MessageList = () => {
         getAllMessages()
     }, [])
 
-
     return (
         <section>
             <Xwrapper>
                 <Button type="primary" onClick={addCard}>Добавить карточку</Button>
-                {cards.length > 1 && <>
-                    <div className={s.wrapper}>{cards?.map(renderCards)}</div>
-                    <div>{cards?.map(renderXArrows)}</div>
+                {messageList.length > 1 && <>
+                    <div className={s.wrapper}>{messageList?.map(renderCards)}</div>
+                    <div>{messageList?.map(renderXArrows)}</div>
                 </>}
             </Xwrapper>
         </section>
