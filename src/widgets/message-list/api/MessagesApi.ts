@@ -18,6 +18,11 @@ export class MessagesService {
         const requestPath = `${apiRoutes.messages.baseRoute}`
         return api.post(requestPath, message);
     }
+
+    updateMessage(message: TMessageCard, messageId: number): Promise<AxiosResponse<{ data: TMessageCard }>> {
+        const requestPath = `${apiRoutes.messages.baseRoute}/${messageId}`
+        return api.post(requestPath, message);
+    }
 }
 
 export const messagesApi = new MessagesService();
