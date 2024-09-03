@@ -1,4 +1,4 @@
-import { FC, RefObject, useRef } from "react";
+import { FC, RefObject, useRef, useState } from "react";
 import s from "./styles.module.css"
 import { Button, Space, Typography } from "antd";
 import { TMessageCard } from "@/widgets/message-list";
@@ -6,6 +6,7 @@ import { DraggableBox } from "@/shared/ui/DraggableBox";
 import { ActionButton } from "../action-button/Button";
 import { RiseOutlined } from "@ant-design/icons";
 import { messagesApi } from "../../api/MessagesApi";
+import { ModalPortal } from "@/shared/ui/ModalPortal";
 const { Title, Text } = Typography
 
 interface ICardProps {
@@ -17,10 +18,11 @@ interface ICardProps {
 
 export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data }) => {
     const cardRef = useRef(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     //const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
 
     const handleSaveMessage = () => {
-        data && messagesApi.createMessage({...data, id: undefined, bot_id: 1})
+        data && messagesApi.createMessage({ ...data, id: undefined, bot_id: 1 })
     }
 
     const handleChooseEndCard = () => {
@@ -30,13 +32,12 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
     }
 
     return (
-        <DraggableBox ref={cardRef}>
+        <>
             <div className={s.card} key={cardId} ref={cardRef} onClick={handleChooseEndCard} id={cardId.toString()}>
                 <Space>
                     <Title level={3} style={{ textAlign: "center" }}>{data.name.toUpperCase()}</Title>
                     <Button type="text"><RiseOutlined /></Button>
                 </Space>
-                
                 <div>
                     <Text>{data.text}</Text>
                 </div>
@@ -44,18 +45,46 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
                     {data?.buttons?.map((button) => (
                         <ActionButton
                             key={button.id}
-                            buttonId={button.id.toString()}
+                            buttonId={button.id?.toString()}
                             cardId={data.id}
                             onChooseStart={onChooseStart}
                             text={button.text}
                         />
                     ))}
                 </div>
-                <Space align="center"  className="justify-center">
+                <Space align="center" className="justify-center">
                     <Button type="primary" onClick={handleSaveMessage}>Сохранить</Button>
-                    <Button type="default">Изменить</Button>
+                    <Button type="default" onClick={() => setIsModalOpen(true)}>Изменить</Button>
                 </Space>
             </div>
-        </DraggableBox>
+            <ModalPortal isOpen={isModalOpen} title={data.name.toUpperCase()} onClose={() => { setIsModalOpen(false) }}>
+                <div>
+                    <div className={s.card} key={cardId} ref={cardRef} onClick={handleChooseEndCard} id={cardId.toString()}>
+                        <Space>
+                            <Title level={3} style={{ textAlign: "center" }}>{data.name.toUpperCase()}</Title>
+                            <Button type="text"><RiseOutlined /></Button>
+                        </Space>
+                        <div>
+                            <Text>{data.text}</Text>
+                        </div>
+                        <div className={s.content}>
+                            {data?.buttons?.map((button) => (
+                                <ActionButton
+                                    key={button.id}
+                                    buttonId={button.id?.toString()}
+                                    cardId={data.id}
+                                    onChooseStart={onChooseStart}
+                                    text={button.text}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </ModalPortal>
+        </>
     );
 };
+
+{/* <DraggableBox ref={cardRef}>
+    ...
+</DraggableBox> */}

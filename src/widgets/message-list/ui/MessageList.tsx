@@ -65,7 +65,7 @@ export const MessageList = () => {
                             return (
                                 <Xarrow
                                     key={buttonIndex}
-                                    start={button.id.toString()}
+                                    start={button.id?.toString() || Math.floor(Math.random() * 2000).toString()}
                                     end={button.callback_data.toString()}
                                     color={getRandomContrastingColor()}
                                     path="smooth"

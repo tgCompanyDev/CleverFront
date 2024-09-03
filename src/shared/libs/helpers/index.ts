@@ -4,3 +4,5 @@ export function findMaxId(objects) {
     }
     return objects.reduce((maxId, obj) => Math.max(maxId, obj.id), objects[0].id);
 }
+
+export const classNames = (...classes:any) => classes.filter(Boolean).join(' ');
