@@ -19,13 +19,14 @@ type TFormListProps = {
 export const FormList: FC<TFormListProps> = ({ initialValue, itemLabel, itemPlaceholder, formName, listType, required = false, onChange }) => {
 
     const { messageList } = useAppStore(MessagesSelector)
-    const messageNameList = messageList && messageList?.map(message => ({
+    const defaultSelectOption = {
+        name: "Без ссылки",
+        id: null,
+    }
+    const messageNameList = messageList && [defaultSelectOption, ...messageList?.map(message => ({
         name: message.name,
         id: message.id,
-    })).concat({
-        name: "не выбрано",
-        id: null,
-    })
+    }))]
 
     const isButtonsType = listType === "buttons"
     const firstInputName = "text"
@@ -81,7 +82,7 @@ export const FormList: FC<TFormListProps> = ({ initialValue, itemLabel, itemPlac
                                                                                         ]} */
                                                 noStyle
                                             >
-                                                <Select defaultValue={null} placeholder={secondInputName} style={{ width: '50%' }} className="capitalize" >
+                                                <Select placeholder={"Выберите ссылку"} style={{ width: '50%' }} className="capitalize" >
                                                     {messageNameList.map(message => (
                                                         <Option value={message.id} noStyle>{message.name}</Option>
                                                     ))}

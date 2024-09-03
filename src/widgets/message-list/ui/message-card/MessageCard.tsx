@@ -7,7 +7,7 @@ import { ActionButton } from "../action-button/Button";
 import { RiseOutlined } from "@ant-design/icons";
 import { messagesApi } from "../../api/MessagesApi";
 import { ModalPortal } from "@/shared/ui/ModalPortal";
-import { MessageForm } from "../message-form/ui/MessageForm";
+import { MessageForm } from "../message-form/MessageForm";
 const { Title, Text } = Typography
 
 interface ICardProps {

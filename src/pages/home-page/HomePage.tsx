@@ -1,5 +1,4 @@
-import { MessageForm } from "@/widgets/message-list/ui/message-form/ui/MessageForm";
-import { MessageList } from "@/widgets/message-list/ui/MessageList";
+import { MessageList } from "@/widgets/message-list";
 import { FC } from "react";
 
 const HomePage:FC = () => {
