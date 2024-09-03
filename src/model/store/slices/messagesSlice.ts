@@ -2,6 +2,7 @@ import { TMessageCard } from "@/widgets/message-list";
 import { AppSlices, AppStore } from "..";
 import { StateCreator } from "zustand";
 import { initialMessageValue } from "../initialValues";
+import { message } from "antd";
 
 export interface MessagesState {
     /* messageList */
@@ -18,6 +19,7 @@ export type MessagesActions = {
     /* messageCard */
     addMessage: (tempId: number) => void,
     removeMessage: (data: TMessageCard) => void,
+    updateMessage: (data: TMessageCard) => void,
 };
 
 export type MessagesSlice = MessagesState & MessagesActions;
@@ -33,17 +35,28 @@ export const MessagesSelector = (state: AppStore) => state.messages
 export const createMessagesSlice: StateCreator<AppStore, [["zustand/devtools", never]], [], MessagesSlice> = (set) => ({
     ...initialMessagesState,
     setMessageList: (data) => set(
-        (state) => ({...state, messages: {...state.messages, messageList: data}}),
+        (state) => ({ ...state, messages: { ...state.messages, messageList: data } }),
         true,
         "setMessageList"
     ),
+    updateMessage: (data) => set(
+        (state) => ({
+            ...state,
+            messages: {
+                ...state.messages,
+                messageList: state.messages.messageList.map(message => message.id === data.id ? data : message),
+            }
+        }),
+        false,
+        "addMessage"
+    ),
     addMessage: (tempId) => set(
-        (state) => ({...state, messages: {...state.messages, messageList: [...state.messages.messageList, {...initialMessageValue, id: tempId + 1}]}}),
+        (state) => ({ ...state, messages: { ...state.messages, messageList: [...state.messages.messageList, { ...initialMessageValue, id: tempId + 1 }] } }),
         false,
         "addMessage"
     ),
     removeMessage: (data) => set(
-        (state) => ({ ...state}),
+        (state) => ({ ...state }),
         true,
         "removeMessage"
     ),
