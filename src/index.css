@@ -2,32 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --color-white: #FFFFFF;
-    --color-black: #323232;
-    --color-blue: #3244E6;
-    --background-color: #f5f5f5;
-    --background-color-secondary: #ffffff;
-    --color-grey: #7b8e98;
-    --button-border-grey: #514E4E;
-    --button-hover-color: #2980b9;
-    --button-text-color: #E0E0E0;
-    --color-input: #00000066;
-    --gradient-01: linear-gradient(180deg, #0EB3B1 0%, #0BAAA8 100%);
-    --border-line: 1px solid rgba(255, 255, 255, .5);
-    --base-font-size: 18px;
-    --text-01: #000;
-    --text-02: #ADADAD;
-    --text-03: #514E4E;
-    --text-04: var(--button-text-color)
-}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Neue Machina,sans-serif;
-    font-weight: 300
 }
 
 html {
@@ -37,12 +16,12 @@ html {
 }
 
 body {
-    min-width: 375px
+    min-width: 375px;
+    background-color: rgb(236, 236, 236);
 }
 
 #root {
     min-height: 100vh;
-    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -69,19 +48,8 @@ h1,h2,h3,h4,h5 {
     margin: 0
 }
 
-p,span,input {
-    font-size: var(--base-font-size)
-}
-
 a {
     text-decoration: none
-}
-
-.step {
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 300;
-    color: var(--text-03)
 }
 
 @media (max-width: 480px) {
@@ -90,11 +58,6 @@ a {
         padding-right: 16px
     }
 
-    .step {
-        font-size: 18px;
-        font-weight: 300;
-        color: var(--text-02)
-    }
 }
 
 @media (min-width: 481px) {

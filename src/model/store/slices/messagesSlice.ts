@@ -5,7 +5,7 @@ import { initialMessageValue } from "../initialValues";
 
 export interface MessagesState {
     /* messageList */
-    messageList: TMessageCard[] | [];
+    messageList: TMessageCard[];
     /* messageCard */
     currentMessage: TMessageCard | undefined;
     bot_id: number;

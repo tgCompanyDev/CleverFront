@@ -17,5 +17,5 @@ export type TMessageCard = {
 export type TMessageButton = {
     id: number;
     text: string;
-    callback_data: string | null;
+    callback_data: number | string | null;
 }

@@ -21,7 +21,7 @@ export class MessagesService {
 
     updateMessage(message: TMessageCard, messageId: number): Promise<AxiosResponse<{ data: TMessageCard }>> {
         const requestPath = `${apiRoutes.messages.baseRoute}/${messageId}`
-        return api.post(requestPath, message);
+        return api.put(requestPath, message);
     }
 }
 

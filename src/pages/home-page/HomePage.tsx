@@ -6,9 +6,6 @@ const HomePage:FC = () => {
     return (
         <>
             <MessageList />
-            <div className="max-w-[400px] p-2 m-10 border">
-                <MessageForm />
-            </div>
         </>
     )
 }

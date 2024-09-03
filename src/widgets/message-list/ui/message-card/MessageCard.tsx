@@ -7,6 +7,7 @@ import { ActionButton } from "../action-button/Button";
 import { RiseOutlined } from "@ant-design/icons";
 import { messagesApi } from "../../api/MessagesApi";
 import { ModalPortal } from "@/shared/ui/ModalPortal";
+import { MessageForm } from "../message-form/ui/MessageForm";
 const { Title, Text } = Typography
 
 interface ICardProps {
@@ -52,33 +53,11 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
                         />
                     ))}
                 </div>
-                <Space align="center" className="justify-center">
-                    <Button type="primary" onClick={handleSaveMessage}>Сохранить</Button>
-                    <Button type="default" onClick={() => setIsModalOpen(true)}>Изменить</Button>
-                </Space>
+                <Button type="default" onClick={() => setIsModalOpen(true)} block>Изменить</Button>
             </div>
             <ModalPortal isOpen={isModalOpen} title={data.name.toUpperCase()} onClose={() => { setIsModalOpen(false) }}>
-                <div>
-                    <div className={s.card} key={cardId} ref={cardRef} onClick={handleChooseEndCard} id={cardId.toString()}>
-                        <Space>
-                            <Title level={3} style={{ textAlign: "center" }}>{data.name.toUpperCase()}</Title>
-                            <Button type="text"><RiseOutlined /></Button>
-                        </Space>
-                        <div>
-                            <Text>{data.text}</Text>
-                        </div>
-                        <div className={s.content}>
-                            {data?.buttons?.map((button) => (
-                                <ActionButton
-                                    key={button.id}
-                                    buttonId={button.id?.toString()}
-                                    cardId={data.id}
-                                    onChooseStart={onChooseStart}
-                                    text={button.text}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                <div className="">
+                    <MessageForm messageData={data}/>
                 </div>
             </ModalPortal>
         </>
