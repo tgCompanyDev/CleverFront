@@ -23,15 +23,17 @@ export const ModalPortal = ({ children, isOpen, onClose, title, transparent=fals
     const body = document?.querySelector("body")
     const modalRoot = document?.querySelector("#modal-root")
 
-    useEffect(() => {
-        if (isOpen) {
-            main.style.filter = "blur(5px)"
-            body.style.overflow = "hidden"
-        } else {
-            main.style.filter = "none"
-            body.style.overflow = "auto"
-        }
-    }, [isOpen, main.style, body.style])
+    if (isOpen) {
+        main.style.filter = "blur(5px)"
+        body.style.overflow = "hidden"
+    } else {
+        main.style.filter = "none"
+        body.style.overflow = "auto"
+    }
+
+    // useEffect(() => {
+    //     console.log(66, 'useEffect');
+    // }, [isOpen, main.style, body.style])
 
     useEffect(() => setMounted(true), [])
 

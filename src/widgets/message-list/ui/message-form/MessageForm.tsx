@@ -1,36 +1,66 @@
 import { FormList } from "@/entities/form"
 import { useAppStore } from "@/model/store"
 import { MessagesSelector } from "@/model/store/slices/messagesSlice"
-import { TSelectOPtion } from "@/shared/types/form"
+import { TSelectOption } from "@/shared/types/form"
 import { messagesApi } from "@/widgets/message-list/api/MessagesApi"
 import { TMessageCard } from "@/widgets/message-list/types/messagesTypes"
-import { Button, Form, Input, InputNumber, Select } from "antd"
-import { FC } from "react"
+import { Button, Form, Input, InputNumber, Select, Space } from "antd"
+import { FC, useState } from "react"
 const { Option } = Select
 type TMessageFormProps = {
-    messageData: TMessageCard
+    messageData: TMessageCard,
+    onFinish: () => void,
 }
-const defaultSelectOption: TSelectOPtion = {
+const defaultSelectOption: TSelectOption = {
     name: "Без ссылки",
     id: null,
 }
-export const MessageForm: FC<TMessageFormProps> = ({ messageData }) => {
-    const { updateMessage, messageList } = useAppStore(MessagesSelector)
+export const MessageForm: FC<TMessageFormProps> = ({ messageData, onFinish }) => {
+    const [loading, setLoading] = useState(false)
+    const { updateMessage, messageList, bot_id, removeMessage } = useAppStore(MessagesSelector)
     const initialButtonValues = messageData.buttons.map(item => (
-        { ...item, callback_data: !!item.callback_data ? +item.callback_data : null }
+        { ...item, callback_data: item.callback_data ? +item.callback_data : null }
     ))
     const initialFormValues: TMessageCard = {
         ...messageData,
         buttons: initialButtonValues
     }
-    const messageNameList = messageList && [defaultSelectOption, ...messageList?.map(message => ({
+    const messageNameList: TSelectOption[] = messageList.map(message => ({
         name: message.name,
         id: message.id,
-    }))]
+    }))
+    const optionMessageList = [defaultSelectOption, ...messageNameList]
+    const isDraftMessage = +messageData.id < 1
+
     const onFormSubmit = (values: TMessageCard) => {
-        messagesApi
-            .updateMessage({ ...messageData, ...values }, values.id)
-            .then(res => updateMessage(res.data.data))
+        setLoading(true)
+        const apiMethod = isDraftMessage ? "createMessage" : "updateMessage"
+        messagesApi[apiMethod]({ ...messageData, ...values, bot_id })
+            .then(res => {
+                updateMessage(res.data.data, messageData.id)
+            })
+            .finally(() => {
+                setLoading(false)
+                onFinish()
+            })
+    }
+
+    const handleRemoveMessage = () => {
+        if (isDraftMessage) {
+            removeMessage(messageData.id)
+            onFinish()
+        } else {
+            setLoading(true)
+            messagesApi.removeMessage(messageData.id)
+                .then(() => {
+                    removeMessage(messageData.id)
+                })
+                .finally(() => {
+                    setLoading(false)
+                    onFinish()
+                })
+        }
+
     }
     const handleFormChange = () => { }
     return (
@@ -56,8 +86,8 @@ export const MessageForm: FC<TMessageFormProps> = ({ messageData }) => {
             {messageData.first_message && (
                 <Form.Item label={'Следующее сообщение'} className="" name={'next_message_id'}>
                     <Select placeholder={"Выберите ссылку"} style={{ width: '100%' }} className="capitalize" >
-                        {messageNameList.map(message => (
-                            <Option value={message.id} noStyle>{message.name}</Option>
+                        {optionMessageList.map((message, index) => (
+                            <Option key={message.id+index} value={message.id} noStyle>{message.name}</Option>
                         ))}
                     </Select>
                 </Form.Item>
@@ -71,7 +101,10 @@ export const MessageForm: FC<TMessageFormProps> = ({ messageData }) => {
                 required={true}
                 onChange={handleFormChange}
             />
-            <Button htmlType="submit" type="primary" disabled={false}>Сохранить</Button>
+            <Space>
+                <Button htmlType="submit" type="primary" disabled={loading} loading={loading}>Сохранить</Button>
+                <Button htmlType="button" type="primary" disabled={loading} loading={loading} danger onClick={handleRemoveMessage}>Удалить</Button>
+            </Space>
         </Form>
     )
 }

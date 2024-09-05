@@ -1,4 +1,4 @@
-export type TSelectOPtion = {
+export type TSelectOption = {
     name: string,
-    id: null,
+    id: number | null,
 }

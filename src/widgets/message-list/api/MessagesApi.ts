@@ -19,9 +19,14 @@ export class MessagesService {
         return api.post(requestPath, message);
     }
 
-    updateMessage(message: TMessageCard, messageId: number): Promise<AxiosResponse<{ data: TMessageCard }>> {
-        const requestPath = `${apiRoutes.messages.baseRoute}/${messageId}`
+    updateMessage(message: TMessageCard): Promise<AxiosResponse<{ data: TMessageCard }>> {
+        const requestPath = `${apiRoutes.messages.baseRoute}/${message.id}`
         return api.put(requestPath, message);
+    }
+
+    removeMessage(id: number): Promise<AxiosResponse<{ data: object }>> {
+        const requestPath = `${apiRoutes.messages.baseRoute}/${id}`
+        return api.delete(requestPath);
     }
 }
 

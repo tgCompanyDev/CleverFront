@@ -46,7 +46,6 @@ export const MessageList = () => {
         switch (true) {
             //Стрелка от карточки
             case !!card.next_message_id:
-                console.log('connect', card.id, card.next_message_id);
                 return (
                     <Xarrow
                         key={cardIndex}

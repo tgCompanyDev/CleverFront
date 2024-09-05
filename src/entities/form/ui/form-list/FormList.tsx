@@ -23,10 +23,11 @@ export const FormList: FC<TFormListProps> = ({ initialValue, itemLabel, itemPlac
         name: "Без ссылки",
         id: null,
     }
-    const messageNameList = messageList && [defaultSelectOption, ...messageList?.map(message => ({
+    const messageNameList = messageList?.map(message => ({
         name: message.name,
         id: message.id,
-    }))]
+    }))
+    const optionMessageList = [defaultSelectOption, ...messageNameList]
 
     const isButtonsType = listType === "buttons"
     const firstInputName = "text"
@@ -45,7 +46,7 @@ export const FormList: FC<TFormListProps> = ({ initialValue, itemLabel, itemPlac
                                 <Form.Item
                                     label={itemLabel}
                                     required={false}
-                                    key={field.key + index}
+                                    key={field.name + index}
                                     style={{ display: "flex" }}
                                 >
 
@@ -83,8 +84,8 @@ export const FormList: FC<TFormListProps> = ({ initialValue, itemLabel, itemPlac
                                                 noStyle
                                             >
                                                 <Select placeholder={"Выберите ссылку"} style={{ width: '50%' }} className="capitalize" >
-                                                    {messageNameList.map(message => (
-                                                        <Option value={message.id} noStyle>{message.name}</Option>
+                                                    {optionMessageList.map((message, index) => (
+                                                        <Option key={message.id+index} value={message.id} noStyle>{message.name}</Option>
                                                     ))}
                                                 </Select>
                                             </Form.Item>

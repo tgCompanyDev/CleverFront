@@ -2,14 +2,11 @@ import { FC, RefObject, useRef, useState } from "react";
 import s from "./styles.module.css"
 import { Button, Space, Typography } from "antd";
 import { TMessageCard } from "@/widgets/message-list";
-import { DraggableBox } from "@/shared/ui/DraggableBox";
 import { ActionButton } from "../action-button/Button";
 import { RiseOutlined } from "@ant-design/icons";
-import { messagesApi } from "../../api/MessagesApi";
 import { ModalPortal } from "@/shared/ui/ModalPortal";
 import { MessageForm } from "../message-form/MessageForm";
 const { Title, Text } = Typography
-
 interface ICardProps {
     onChooseStart: (ref: RefObject<HTMLButtonElement>) => void;
     onChooseEnd: (ref: RefObject<HTMLDivElement>) => void;
@@ -22,14 +19,17 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
     const [isModalOpen, setIsModalOpen] = useState(false)
     //const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
 
-    const handleSaveMessage = () => {
-        data && messagesApi.createMessage({ ...data, id: undefined, bot_id: 1 })
-    }
-
     const handleChooseEndCard = () => {
         if (onChooseEnd) {
             onChooseEnd(cardRef)
         }
+    }
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true)
+    }
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
     }
 
     return (
@@ -53,11 +53,11 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
                         />
                     ))}
                 </div>
-                <Button type="default" onClick={() => setIsModalOpen(true)} block>Изменить</Button>
+                <Button type="default" onClick={handleOpenModal} block>Изменить</Button>
             </div>
-            <ModalPortal isOpen={isModalOpen} title={data.name.toUpperCase()} onClose={() => { setIsModalOpen(false) }}>
+            <ModalPortal isOpen={isModalOpen} title={data.name.toUpperCase()} onClose={handleCloseModal}>
                 <div className="">
-                    <MessageForm messageData={data}/>
+                    <MessageForm messageData={data} onFinish={handleCloseModal}/>
                 </div>
             </ModalPortal>
         </>

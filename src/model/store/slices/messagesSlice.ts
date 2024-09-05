@@ -1,5 +1,5 @@
 import { TMessageCard } from "@/widgets/message-list";
-import { AppSlices, AppStore } from "..";
+import { AppStore } from "..";
 import { StateCreator } from "zustand";
 import { initialMessageValue } from "../initialValues";
 import { message } from "antd";
@@ -18,8 +18,8 @@ export type MessagesActions = {
     setMessageList: (data: TMessageCard[]) => void,
     /* messageCard */
     addMessage: (tempId: number) => void,
-    removeMessage: (data: TMessageCard) => void,
-    updateMessage: (data: TMessageCard) => void,
+    removeMessage: (id: number) => void,
+    updateMessage: (data: TMessageCard, id: number) => void,
 };
 
 export type MessagesSlice = MessagesState & MessagesActions;
@@ -31,6 +31,9 @@ export const initialMessagesState: MessagesState = {
 };
 
 export const MessagesSelector = (state: AppStore) => state.messages
+const calculateDivider = (length: number) => (
+    Math.pow(10, (length + 1).toString().length)
+)
 
 export const createMessagesSlice: StateCreator<AppStore, [["zustand/devtools", never]], [], MessagesSlice> = (set) => ({
     ...initialMessagesState,
@@ -39,24 +42,24 @@ export const createMessagesSlice: StateCreator<AppStore, [["zustand/devtools", n
         true,
         "setMessageList"
     ),
-    updateMessage: (data) => set(
+    updateMessage: (data, id) => set(
         (state) => ({
             ...state,
             messages: {
                 ...state.messages,
-                messageList: state.messages.messageList.map(message => message.id === data.id ? data : message),
+                messageList: state.messages.messageList.map(message => id === message.id ? data : message),
             }
         }),
         false,
         "addMessage"
     ),
-    addMessage: (tempId) => set(
-        (state) => ({ ...state, messages: { ...state.messages, messageList: [...state.messages.messageList, { ...initialMessageValue, id: tempId + 1 }] } }),
+    addMessage: () => set(
+        (state) => ({ ...state, messages: { ...state.messages, messageList: [...state.messages.messageList, { ...initialMessageValue, id: (state.messages.messageList.length + 1) / calculateDivider(state.messages.messageList.length) }] } }),
         false,
         "addMessage"
     ),
-    removeMessage: (data) => set(
-        (state) => ({ ...state }),
+    removeMessage: (id) => set(
+        (state) => ({ ...state, messages: { ...state.messages, messageList: state.messages.messageList.filter(message => message.id !== id) } }),
         true,
         "removeMessage"
     ),
