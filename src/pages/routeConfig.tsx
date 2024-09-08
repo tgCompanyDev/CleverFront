@@ -2,6 +2,8 @@ import { ReactNode } from "react"
 import HomePage from "./home-page/HomePage"
 import ConstructorPage from "./constructor-page/ConstructorPage"
 import NotFoundPage from "./not-found-page/NotFoundPage"
+import PrivateRoute from "@/shared/ui/PrivateRoute"
+import AuthPage from "./auth-page/AuthPAge"
 
 export type TRoutes = {
     path: string,
@@ -15,7 +17,7 @@ export const RoutePath = {
     clients: "/clients",
     analytic: "/analytic",
     constructor: "/constructor",
-    // login: "/signin",
+    login: "/login",
     // register: "/signup",
     // products: "/products",
     // product: "/product/:productId",
@@ -29,5 +31,6 @@ export const baseRoutes: TRoutes[] = [
 ]
 
 export const privateRoutes: TRoutes[] = [
-    { path: RoutePath.constructor, element: <ConstructorPage /> },
+    { path: RoutePath.login, element: <PrivateRoute isAuthRoute><AuthPage /></PrivateRoute>},
+    { path: RoutePath.constructor, element: <PrivateRoute><ConstructorPage /></PrivateRoute> },
 ]

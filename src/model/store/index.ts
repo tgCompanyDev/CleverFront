@@ -1,23 +1,23 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { createMessagesSlice, MessagesSlice, MessagesState } from "./slices/messagesSlice";
-import { createModalSlice, ModalSlice, ModalState } from "./slices/modalSlice";
+import { createUserSlice, UserSlice, UserState } from "./slices/userSlice";
 
 export type AppStore = {
     messages: MessagesSlice;
-    modal:ModalSlice;
+    user:UserSlice;
 }
 
 //export type AppSlices = MessagesSlice
 
 export interface AppState {
     messages: MessagesState,
-    modal: ModalState,
+    modal: UserState,
 }
 
 export const useAppStore = create<AppStore>()(
     devtools((set, get, store) => ({
         messages: {...createMessagesSlice(set, get, store)},
-        modal: {...createModalSlice(set, get, store)},
+        user: {...createUserSlice(set, get, store)},
     }))
 )
