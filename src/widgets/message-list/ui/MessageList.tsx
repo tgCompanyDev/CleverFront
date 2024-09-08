@@ -34,8 +34,8 @@ export const MessageList = () => {
         // })
     }
 
-    const renderCards = (card: TMessageCard) => (
-        <Card data={card} key={card.id} cardId={card.id} onChooseEnd={onChooseEnd} onChooseStart={onChooseStart} />
+    const renderCards = (card: TMessageCard, index: number) => (
+        <Card data={card} key={card.id} cardId={card.id} onChooseEnd={onChooseEnd} onChooseStart={onChooseStart} index={index}/>
     )
 
     const showArrows = () => {

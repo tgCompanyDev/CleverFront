@@ -3,18 +3,22 @@ import s from "./styles.module.css"
 import { Button, Space, Typography } from "antd";
 import { TMessageCard } from "@/widgets/message-list";
 import { ActionButton } from "../action-button/Button";
-import { RiseOutlined } from "@ant-design/icons";
+import { RiseOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { ModalPortal } from "@/shared/ui/ModalPortal";
 import { MessageForm } from "../message-form/MessageForm";
+import { useAppStore } from "@/model/store";
+import { MessagesSelector } from "@/model/store/slices/messagesSlice";
 const { Title, Text } = Typography
 interface ICardProps {
     onChooseStart: (ref: RefObject<HTMLButtonElement>) => void;
     onChooseEnd: (ref: RefObject<HTMLDivElement>) => void;
     cardId: number;
-    data: TMessageCard
+    data: TMessageCard,
+    index?: number,
 }
 
-export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data }) => {
+export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data, index }) => {
+    const {moveCard} = useAppStore(MessagesSelector)
     const cardRef = useRef(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     //const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
@@ -30,6 +34,12 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
     }
     const handleCloseModal = () => {
         setIsModalOpen(false)
+    }
+    const handleMoveLeftCard = () => {
+        moveCard(index, index-1)
+    }
+    const handleMoveRightCard = () => {
+        moveCard(index, index + 1)
     }
 
     return (
@@ -53,7 +63,12 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data 
                         />
                     ))}
                 </div>
-                <Button type="default" onClick={handleOpenModal} block>Изменить</Button>
+                <div className="flex">
+                    <Button onClick={handleMoveLeftCard}><LeftOutlined /></Button>
+                    <Button type="default" onClick={handleOpenModal} block>Изменить</Button>
+                    <Button onClick={handleMoveRightCard}><RightOutlined /></Button>
+                </div>
+                
             </div>
             <ModalPortal isOpen={isModalOpen} title={data.name.toUpperCase()} onClose={handleCloseModal}>
                 <div className="">

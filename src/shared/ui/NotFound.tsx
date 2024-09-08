@@ -1,6 +1,5 @@
-import NotFoundIcon from './images/notFoundIcon.svg';
+//import NotFoundIcon from './images/notFoundIcon.svg';
 import { ReactNode } from 'react';
-import s from './styles.module.scss';
 import { Link } from 'react-router-dom';
 
 type TNotFoundProps = {
@@ -12,9 +11,9 @@ type TNotFoundProps = {
 
 export const NotFound = ({ children, title, buttonText = 'На главную', buttonAction }: TNotFoundProps) => {
     return (
-        <div className={s.notfound}>
-            <span className={s.image}><NotFoundIcon /></span>
-            <h1 className={s.title}>{title}</h1>
+        <div>
+            {/* <span className={s.image}><NotFoundIcon /></span> */}
+            <h1>{title}</h1>
             {children}
             <Link to='/'><button>На главную</button></Link>
             {/* {buttonAction

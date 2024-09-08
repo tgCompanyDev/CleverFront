@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import HomePage from "./home-page/HomePage"
+import ConstructorPage from "./constructor-page/ConstructorPage"
 import NotFoundPage from "./not-found-page/NotFoundPage"
 
 export type TRoutes = {
@@ -9,6 +10,11 @@ export type TRoutes = {
 
 export const RoutePath = {
     home: "/",
+    manage: "/manage",
+    promote: "/promote",
+    clients: "/clients",
+    analytic: "/analytic",
+    constructor: "/constructor",
     // login: "/signin",
     // register: "/signup",
     // products: "/products",
@@ -22,4 +28,6 @@ export const baseRoutes: TRoutes[] = [
     { path: "*", element: <NotFoundPage /> },
 ]
 
-export const privateRoutes: TRoutes[] = []
+export const privateRoutes: TRoutes[] = [
+    { path: RoutePath.constructor, element: <ConstructorPage /> },
+]
