@@ -14,12 +14,15 @@ import { findMaxId } from "@/shared/libs/helpers";
 
 export const MessageList = () => {
     const { messageList, addMessage, setMessageList } = useAppStore(MessagesSelector)
+    const [activeCardId, setActiveCardId] = useState<number>()
+
     const addCard = () => {
         messageList && addMessage(findMaxId(messageList));
         
         //addMessage(messageList.length)
         //setCards([...cards, { id: cards.length + 1 }]);
     };
+    
 
     const onChooseStart = (ref: RefObject<HTMLButtonElement>) => {
         //setArrows((prev) => [...prev, { start: ref, end: undefined }])
@@ -34,8 +37,22 @@ export const MessageList = () => {
         // })
     }
 
+    const onArrowButtonClick = (id: number) => {
+        setActiveCardId(id);
+        
+    }
+
     const renderCards = (card: TMessageCard, index: number) => (
-        <Card data={card} key={card.id} cardId={card.id} onChooseEnd={onChooseEnd} onChooseStart={onChooseStart} index={index}/>
+        <Card 
+            data={card} 
+            key={card.id} 
+            cardId={card.id} 
+            onChooseEnd={onChooseEnd}
+            onChooseStart={onChooseStart} 
+            index={index} 
+            onArrowButtonClick={onArrowButtonClick}
+            transparent={activeCardId && activeCardId !== card.id}
+        />
     )
 
     const showArrows = () => {

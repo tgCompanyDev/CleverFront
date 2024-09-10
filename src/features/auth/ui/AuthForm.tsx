@@ -1,17 +1,27 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import type { FormProps } from 'antd';
 import { Button, Form, Input } from 'antd';
 import { userApi } from '../api/UserApi';
 import { TAuthLoginData } from '../types';
 import { useAppStore } from '@/model/store';
+import { setToken } from '@/shared/libs/utils/auth';
 
 export const AuthForm: FC = ({}) => {
     const {setIsAuthenticated} = useAppStore(state => state.user)
+    const [authPending, setAuthPending] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
     const handleFinish = (loginData:TAuthLoginData) => {
-        console.log('Success:', loginData);
+        setAuthPending(true)
         userApi.authLogin(loginData)
-            .finally(() => {
+            .then(auth => {
+                setToken(auth.data.token);
                 setIsAuthenticated(true);
+            })
+            .catch(error => {
+                setErrorMessage(typeof error === "string" ? error : error.message);
+            })
+            .finally(() => {
+                setAuthPending(false)
             })
     };
 
@@ -50,10 +60,13 @@ export const AuthForm: FC = ({}) => {
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={authPending}>
                     Submit
                 </Button>
             </Form.Item>
+            {errorMessage && (
+                <p className='text-red-500 font-bold text-center'>{errorMessage}</p>
+            )}
         </Form>
     )
 };

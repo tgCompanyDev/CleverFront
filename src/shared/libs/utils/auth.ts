@@ -8,7 +8,7 @@ export const setToken = (token: string) => {
 }
 export const deleteToken = () => Cookies.remove(tokenName)
 export const getToken = () => {
-    return Cookies.get(tokenName) || null
+    return Cookies.get(tokenName) || undefined
 }
 
 export const getUserLocalStorage = () => JSON.parse(localStorage.getItem(userName))

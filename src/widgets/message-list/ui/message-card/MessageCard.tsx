@@ -8,6 +8,7 @@ import { ModalPortal } from "@/shared/ui/ModalPortal";
 import { MessageForm } from "../message-form/MessageForm";
 import { useAppStore } from "@/model/store";
 import { MessagesSelector } from "@/model/store/slices/messagesSlice";
+import { classNames } from "@/shared/libs/helpers";
 const { Title, Text } = Typography
 interface ICardProps {
     onChooseStart: (ref: RefObject<HTMLButtonElement>) => void;
@@ -15,13 +16,23 @@ interface ICardProps {
     cardId: number;
     data: TMessageCard,
     index?: number,
+    onArrowButtonClick: (id: number) => void;
+    transparent: boolean,
 }
 
-export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data, index }) => {
-    const {moveCard} = useAppStore(MessagesSelector)
+export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data, index, onArrowButtonClick, transparent }) => {
+    const { moveCard } = useAppStore(MessagesSelector)
     const cardRef = useRef(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     //const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
+
+    const onMouseDown = () => {
+        onArrowButtonClick(cardId)
+    }
+
+    const onActionEnd = () => {
+        onArrowButtonClick(undefined)
+    }
 
     const handleChooseEndCard = () => {
         if (onChooseEnd) {
@@ -36,7 +47,7 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data,
         setIsModalOpen(false)
     }
     const handleMoveLeftCard = () => {
-        moveCard(index, index-1)
+        moveCard(index, index - 1)
     }
     const handleMoveRightCard = () => {
         moveCard(index, index + 1)
@@ -44,10 +55,20 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data,
 
     return (
         <>
-            <div className={s.card} key={cardId} ref={cardRef} onClick={handleChooseEndCard} id={cardId.toString()}>
+            <div
+                className={classNames(
+                    s.card,
+                    transparent ? "opacity-30" : ""
+                )}
+                key={cardId}
+                ref={cardRef}
+                onClick={handleChooseEndCard}
+                id={cardId.toString()}
+                onMouseLeave={onActionEnd}
+            >
                 <Space>
-                    <Title level={3} style={{ textAlign: "center" }}>{data.name.toUpperCase()}</Title>
-                    <Button type="text"><RiseOutlined /></Button>
+                    <Title level={4}>{data.name.toUpperCase()}</Title>
+                    <Button type="text" onMouseDown={onMouseDown} onMouseUp={onActionEnd}><RiseOutlined /></Button>
                 </Space>
                 <div>
                     <Text>{data.text}</Text>
@@ -68,11 +89,11 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data,
                     <Button type="default" onClick={handleOpenModal} block>Изменить</Button>
                     <Button onClick={handleMoveRightCard}><RightOutlined /></Button>
                 </div>
-                
+
             </div>
             <ModalPortal isOpen={isModalOpen} title={data.name.toUpperCase()} onClose={handleCloseModal}>
                 <div className="">
-                    <MessageForm messageData={data} onFinish={handleCloseModal}/>
+                    <MessageForm messageData={data} onFinish={handleCloseModal} />
                 </div>
             </ModalPortal>
         </>
