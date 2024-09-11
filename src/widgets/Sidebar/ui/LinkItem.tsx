@@ -1,24 +1,26 @@
 import { classNames } from "@/shared/libs/helpers";
+import { RightOutlined } from "@ant-design/icons";
 import { FC, ReactNode } from "react"
-import { NavLink, useLocation } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 type TLinkItemProps = {
     title: string;
     href: string,
     icon?: ReactNode
+    active: boolean,
 }
-export const LinkItem: FC<TLinkItemProps> = ({ title, href, icon }) => {
-    const { pathname } = useLocation();
+export const LinkItem: FC<TLinkItemProps> = ({ title, href, icon, active }) => {
     return (
         <NavLink
             to={href}
             className={classNames(
-                "group relative flex items-center gap-2.5",
-                ` rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`,
-                `${pathname.includes('calendar') ? 'bg-graydark dark:bg-meta-4' : ''}`
+                "relative flex items-center gap-2.5",
+                `rounded-lg py-2 px-4 font-medium duration-300 ease-in-out`,
+                active ? 'bg-green text-white' : ''
             )}
         >
             {icon}
-            <span>{title}</span>
+            <span className="flex-1">{title}</span>
+            <RightOutlined />
         </NavLink>
     )
 }

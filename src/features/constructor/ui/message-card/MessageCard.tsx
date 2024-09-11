@@ -1,14 +1,14 @@
 import { FC, RefObject, useRef, useState } from "react";
 import s from "./styles.module.css"
 import { Button, Space, Typography } from "antd";
-import { TMessageCard } from "@/widgets/message-list";
 import { ActionButton } from "../action-button/Button";
 import { RiseOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { ModalPortal } from "@/shared/ui/ModalPortal";
 import { MessageForm } from "../message-form/MessageForm";
 import { useAppStore } from "@/model/store";
-import { MessagesSelector } from "@/model/store/slices/messagesSlice";
 import { classNames } from "@/shared/libs/helpers";
+import { TMessageCard } from "../../types/messageTypes";
+import { MessagesSelector } from "@/model/store/slices/messagesSlice";
 const { Title, Text } = Typography
 interface ICardProps {
     onChooseStart: (ref: RefObject<HTMLButtonElement>) => void;

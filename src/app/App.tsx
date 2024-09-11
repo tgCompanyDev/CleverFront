@@ -10,7 +10,9 @@ const App = () => {
 
     useEffect(() => {
         const token = getToken();
-        Boolean(token) && setIsAuthenticated(true);
+        if (token) {
+            setIsAuthenticated(true);
+        }
     }, [])
     return (
         <DefaultLayout>

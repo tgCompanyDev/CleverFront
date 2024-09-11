@@ -1,10 +1,10 @@
-import { MessageList } from "@/widgets/message-list";
+import { Constructor } from "@/features/constructor";
 
 const ConstructorPage = () => {
     return (
         <>
             <h1>Конструктор</h1>
-            <MessageList />
+            <Constructor />
         </>
     )
 }

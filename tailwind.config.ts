@@ -22,7 +22,9 @@ const config: Config = {
             'purple-dark': '#131139',
             'yellow-base': '#FFE70C',
             'pink-light': '#B9B8DD',
-            'red-toxic': '#FF195E'
+            'red-toxic': '#FF195E',
+            'green': '#0B6E3A',
+            'green-light': '#E8FFE0',
         },
     },
     plugins: [],

@@ -1,11 +1,11 @@
 import { FormList } from "@/entities/form"
 import { useAppStore } from "@/model/store"
-import { MessagesSelector } from "@/model/store/slices/messagesSlice"
 import { TSelectOption } from "@/shared/types/form"
-import { messagesApi } from "@/widgets/message-list/api/MessagesApi"
-import { TMessageCard } from "@/widgets/message-list/types/messagesTypes"
 import { Button, Form, Input, InputNumber, Select, Space } from "antd"
 import { FC, useState } from "react"
+import { TMessageCard } from "../../types/messageTypes"
+import { messagesApi } from "../../api/ConstructorApi"
+import { MessagesSelector } from "@/model/store/slices/messagesSlice"
 const { Option } = Select
 type TMessageFormProps = {
     messageData: TMessageCard,
@@ -13,7 +13,7 @@ type TMessageFormProps = {
 }
 const defaultSelectOption: TSelectOption = {
     name: "Без ссылки",
-    id: null,
+    id: undefined,
 }
 export const MessageForm: FC<TMessageFormProps> = ({ messageData, onFinish }) => {
     const [loading, setLoading] = useState(false)

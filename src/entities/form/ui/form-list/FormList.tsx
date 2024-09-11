@@ -1,6 +1,6 @@
+import { TMessageButton } from "@/features/constructor";
 import { useAppStore } from "@/model/store";
 import { MessagesSelector } from "@/model/store/slices/messagesSlice";
-import { TMessageButton } from "@/widgets/message-list"
 import { CloseOutlined } from "@ant-design/icons"
 import { Button, Form, Input, Select, Space } from "antd"
 import { FC } from "react"
