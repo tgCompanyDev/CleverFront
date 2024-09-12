@@ -4,6 +4,7 @@ import ConstructorPage from "./constructor-page/ConstructorPage"
 import NotFoundPage from "./not-found-page/NotFoundPage"
 import PrivateRoute from "@/shared/ui/PrivateRoute"
 import AuthPage from "./auth-page/AuthPAge"
+import ControlPanelPage from "./control-panel-page/ControlPanelPage"
 
 export type TRoutes = {
     path: string,
@@ -12,8 +13,8 @@ export type TRoutes = {
 
 export const RoutePath = {
     home: "/",
-    manage: "/manage",
     promote: "/promote",
+    controlPanel: "/control-panel",
     clients: "/clients",
     analytic: "/analytic",
     constructor: "/constructor",
@@ -33,4 +34,5 @@ export const baseRoutes: TRoutes[] = [
 export const privateRoutes: TRoutes[] = [
     { path: RoutePath.login, element: <PrivateRoute isAuthRoute><AuthPage /></PrivateRoute>},
     { path: RoutePath.constructor, element: <PrivateRoute><ConstructorPage /></PrivateRoute> },
+    { path: RoutePath.controlPanel, element: <PrivateRoute><ControlPanelPage /></PrivateRoute> },
 ]

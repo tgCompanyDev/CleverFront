@@ -58,7 +58,8 @@ export const Card: FC<ICardProps> = ({ cardId, onChooseStart, onChooseEnd, data,
             <div
                 className={classNames(
                     s.card,
-                    transparent ? "opacity-30" : ""
+                    transparent ? "opacity-30" : "",
+                    "mx-12"
                 )}
                 key={cardId}
                 ref={cardRef}

@@ -90,7 +90,7 @@ export const MessageList = () => {
             <Xwrapper>
                 {messageList.length > 1 && <>
                     <div className={classNames(
-                        "grid grid-cols-3 gap-10",
+                        "grid grid-cols-4 gap-10",
                     )}>
                         {messageList?.map(renderCards)}
                     </div>

@@ -12,7 +12,7 @@ interface SidebarProps {
 
 const mainLinks = [
   {
-    href: RoutePath.manage,
+    href: RoutePath.controlPanel,
     title: "Панель управления",
     icon: <SettingOutlined />
   },
