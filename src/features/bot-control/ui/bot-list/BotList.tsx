@@ -27,6 +27,14 @@ const botList: DataType[] = [
         link: "https://t.me/DuckTask_bot",
         channels: [
             "https://t.me/kontext_channel",
+            "https://t.me/kinopoisk","https://t.me/kontext_channel",
+            "https://t.me/kinopoisk","https://t.me/kontext_channel",
+            "https://t.me/kinopoisk","https://t.me/kontext_channel",
+            "https://t.me/kinopoisk","https://t.me/kontext_channel",
+            "https://t.me/kinopoisk","https://t.me/kontext_channel",
+            "https://t.me/kinopoisk","https://t.me/kontext_channel",
+            "https://t.me/kinopoisk","https://t.me/kontext_channel",
+            "https://t.me/kinopoisk","https://t.me/kontext_channel",
             "https://t.me/kinopoisk",
         ]
     },
@@ -86,6 +94,7 @@ const columns: TableColumnsType<DataType> = [
         title: 'Подключенные каналы',
         dataIndex: 'channels',
         key: 'channels',
+        width: "50%",
         render: (_, record) => <ul className="flex gap-1 flex-wrap">{record.channels.map((link, index) => <li key={index}><Link to={record.link} target="_blank">{formatTelegramLink(link)}</Link></li>)}</ul>
     },
     {
