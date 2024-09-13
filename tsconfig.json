@@ -8,5 +8,6 @@
     "paths": {
       "src/*": ["./src/*"],
     },
+    "types": ["vite/client", "vitest/globals", "vite-plugin-svgr/client"],
   }
 }

@@ -15,6 +15,7 @@ export const RoutePath = {
     home: "/",
     promote: "/promote",
     controlPanel: "/control-panel",
+    controlPanelBots: "/control-panel/bots",
     clients: "/clients",
     analytic: "/analytic",
     constructor: "/constructor",
@@ -34,5 +35,5 @@ export const baseRoutes: TRoutes[] = [
 export const privateRoutes: TRoutes[] = [
     { path: RoutePath.login, element: <PrivateRoute isAuthRoute><AuthPage /></PrivateRoute>},
     { path: RoutePath.constructor, element: <PrivateRoute><ConstructorPage /></PrivateRoute> },
-    { path: RoutePath.controlPanel, element: <PrivateRoute><ControlPanelPage /></PrivateRoute> },
+    { path: `${RoutePath.controlPanel}/*`, element: <PrivateRoute><ControlPanelPage /></PrivateRoute> },
 ]

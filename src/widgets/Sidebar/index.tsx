@@ -114,7 +114,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           <ul className="mb-6 flex flex-col gap-1.5">
             {mainLinks.map((link, index) => (
-              <LinkItem {...link} key={index} active={pathname === link.href} />
+              <LinkItem {...link} key={index} active={pathname === link.href || pathname.includes(link.href)} />
             ))}
           </ul>
         </nav>
